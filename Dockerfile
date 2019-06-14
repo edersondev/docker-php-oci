@@ -39,6 +39,7 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     build-essential \
     libaio1 \
+    locales \
     && unzip -o /tmp/instantclient-basic-linux.x64-12.2.0.1.0.zip -d /usr/local/ \
          && unzip -o /tmp/instantclient-sdk-linux.x64-12.2.0.1.0.zip -d /usr/local/ \
          && unzip -o /tmp/instantclient-sqlplus-linux.x64-12.2.0.1.0.zip -d /usr/local/ \
@@ -50,6 +51,11 @@ RUN apt-get update && apt-get install -y \
          && echo 'umask 002' >> /root/.bashrc \
          && echo /usr/local/instantclient > /etc/ld.so.conf.d/oracle-instantclient.conf \
          && ldconfig
+
+RUN localedef -i pt_BR -c -f UTF-8 -A /usr/share/locale/locale.alias pt_BR.UTF-8
+
+ENV LANG pt_BR.UTF-8
+ENV LC_ALL pt_BR.UTF-8
 
 # Habilita o modo de reescrita do apache
 RUN a2enmod rewrite
@@ -101,6 +107,18 @@ RUN { \
     echo 'xdebug.remote_port=9000'; \
     echo 'xdebug.remote_connect_back=1'; \
 } > /etc/php/${PHP_VERSION}/apache2/conf.d/xdebug-conf.ini
+
+RUN { \
+    echo 'display_errors = on'; \
+    echo '; Get the right number in https://maximivanov.github.io/php-error-reporting-calculator/'; \
+    echo 'error_reporting = 22527'; \
+    echo 'memory_limit = 4096M'; \
+    echo 'post_max_size = 200M'; \
+    echo 'upload_max_filesize = 200M'; \
+    echo 'max_execution_time = 60'; \
+    echo 'max_input_time = 120'; \
+    echo 'date.timezone = "America/Sao_Paulo"'; \
+} > /etc/php/${PHP_VERSION}/apache2/conf.d/extra-conf.ini
 
 # Clean
 RUN apt-get clean && apt-get autoclean && apt-get autoremove \
