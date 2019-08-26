@@ -27,6 +27,8 @@ RUN apt-get update && apt-get install -y \
     php${PHP_VERSION} \
     php${PHP_VERSION}-gd \
     php${PHP_VERSION}-json \
+    php${PHP_VERSION}-pdo \
+    php${PHP_VERSION}-mbstring \
     php${PHP_VERSION}-xml \
     php${PHP_VERSION}-dev \
     php${PHP_VERSION}-memcache \
