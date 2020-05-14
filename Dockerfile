@@ -123,7 +123,7 @@ RUN { \
 } > /etc/php/${PHP_VERSION}/apache2/conf.d/extra-conf.ini
 
 # Clean
-RUN apt-get clean && apt-get autoclean && apt-get autoremove \
+RUN apt-get clean && apt-get autoclean && apt-get autoremove -y \
 && rm -rf /var/lib/apt/lists/* \
 && rm -rf /tmp/*
 
