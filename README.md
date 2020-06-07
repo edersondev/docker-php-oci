@@ -4,7 +4,7 @@ Docker image with PHP and OCI8
 # How to use
 ###### Using docker in command line
 ```
-docker run -d -v [host_path]:/var/www/html -p [host_port]:80 edersondev/php:7.3
+docker run -d -v [host_path]:/var/www/html -p [host_port]:80 edersondev/php_oci:7.3
 ```
 
 ###### Using docker-compose
@@ -12,7 +12,7 @@ docker run -d -v [host_path]:/var/www/html -p [host_port]:80 edersondev/php:7.3
 version: '3'
 services:
   webphp:
-    image: edersondev/php:7.3
+    image: edersondev/php_oci:7.3
     ports:
       - "[host_port]:80"
     volumes:
@@ -25,7 +25,7 @@ services:
 version: '3'
 services:
   webphp:
-    image: edersondev/php:7.3
+    image: edersondev/php_oci:7.3
     ports:
       - "[host_port]:80"
     volumes:
